@@ -17,6 +17,7 @@ export default function BootOverlay() {
   useEffect(() => {
     if (!visible) {
       document.body.classList.add("hero-ready");
+      window.dispatchEvent(new Event("boot-done"));
       return;
     }
 
@@ -31,6 +32,7 @@ export default function BootOverlay() {
       clearInterval(interval);
       setFading(true);
       document.body.classList.add("hero-ready");
+      window.dispatchEvent(new Event("boot-done"));
       removeTimer = setTimeout(() => setVisible(false), 550);
     };
     finishRef.current = finish;

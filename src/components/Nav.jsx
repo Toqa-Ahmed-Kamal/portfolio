@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { UI } from "../data.js";
 import { useLang } from "../i18n.jsx";
+import { useTheme } from "../theme.jsx";
+import { SunIcon, MoonIcon } from "./Icons.jsx";
 
 const LINKS = [
   { to: "/", key: "home" },
@@ -11,7 +13,9 @@ const LINKS = [
 ];
 
 export default function Nav() {
-  const { t, toggleLang } = useLang();
+  const { t, lang, toggleLang } = useLang();
+  const { theme, toggleTheme } = useTheme();
+  const themeLabel = theme === "light" ? (lang === "ar" ? "الوضع الداكن" : "Switch to dark mode") : lang === "ar" ? "الوضع الفاتح" : "Switch to light mode";
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -49,6 +53,16 @@ export default function Nav() {
           ))}
         </div>
         <div className="nav-right">
+          <button
+            className="theme-switch"
+            onClick={(e) => toggleTheme(e.currentTarget)}
+            aria-label={themeLabel}
+            title={themeLabel}
+          >
+            <span className="theme-icon" key={theme}>
+              {theme === "light" ? <MoonIcon /> : <SunIcon />}
+            </span>
+          </button>
           <button className="lang-switch" onClick={toggleLang}>
             {t(UI.langToggle)}
           </button>

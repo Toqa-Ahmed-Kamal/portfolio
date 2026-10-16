@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Toqa Ahmed Kamal — Web GIS Developer</title>
 <meta name="description" content="Web GIS Developer portfolio — enterprise GIS systems, interactive web maps, and spatial analysis across Egypt, Iraq, and the Gulf.">
+<script>
+  /* Apply the saved (or system) theme before first paint to avoid a flash. */
+  (function () {
+    var t;
+    try { t = localStorage.getItem("theme"); } catch (e) {}
+    if (t !== "light" && t !== "dark") t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+    document.documentElement.dataset.theme = t;
+  })();
+</script>
+<meta name="color-scheme" content="dark light">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

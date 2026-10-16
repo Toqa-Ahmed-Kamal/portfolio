@@ -12,7 +12,7 @@ export default function Projects() {
   const { t, lang } = useLang();
   const [filter, setFilter] = useState("all");
   usePageTitle(`${t(UI.nav.projects)} — ${t(META.name)}`);
-  useReveal([lang, filter]);
+  useReveal([lang, filter], [lang]);
 
   const list = filter === "all" ? PROJECTS : filter === "mobile" ? MOBILE_APPS : PROJECTS.filter((p) => p.category === filter);
   const count = lang === "ar" ? `${list.length} مشروع` : `${list.length} project${list.length !== 1 ? "s" : ""}`;

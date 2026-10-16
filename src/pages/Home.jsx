@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { META, UI, STATS, STACK, PROJECTS, FEATURED_IDS, LOCATIONS } from "../data.js";
 import { useLang } from "../i18n.jsx";
@@ -7,13 +8,106 @@ import CoverageMap from "../components/CoverageMap.jsx";
 import ProjectCard from "../components/ProjectCard.jsx";
 import MobileApps from "../components/MobileApps.jsx";
 import { ArrowIcon } from "../components/Icons.jsx";
+import { gsap, SplitText, useGSAP, MOTION_OK } from "../motion.js";
 
 const pad = (n) => String(n).padStart(2, "0");
+
+// Rolls a stat like "04", "42+" or "60,000+" up from zero, keeping its format.
+// Reads the real value from data-value — never from the text, which may be mid-count.
+function countUp(el) {
+  const m = (el.dataset.value || "").match(/^([\d,]+)(.*)$/);
+  if (!m) return null;
+  const digits = m[1];
+  const target = Number(digits.replace(/,/g, ""));
+  const fmt = (v) => {
+    const n = Math.round(v);
+    if (digits.includes(",")) return n.toLocaleString("en-US") + m[2];
+    return String(n).padStart(digits.length, "0") + m[2];
+  };
+  const proxy = { v: 0 };
+  el.textContent = fmt(0);
+  return gsap.to(proxy, {
+    v: target,
+    duration: 1.8,
+    ease: "power2.out",
+    onUpdate: () => (el.textContent = fmt(proxy.v)),
+    onInterrupt: () => (el.textContent = el.dataset.value), // killed early → show the real number
+  });
+}
+
+/* Hero intro — waits for the boot overlay (and web fonts, so lines split correctly),
+   then plays in one sequence. */
+function useHeroIntro(heroRef, lang) {
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add(MOTION_OK, () => {
+        const q = gsap.utils.selector(heroRef);
+        const h1 = q("h1")[0];
+        const map = q(".hero-map-frame");
+        const rise = [q(".hero-copy > .coord, .hero-copy > .status-pill"), q(".lead"), q(".hero-cta .btn"), q(".stat")];
+
+        gsap.set(rise.flat(), { autoAlpha: 0, y: 22 });
+        gsap.set(h1, { autoAlpha: 0 });
+        gsap.set(map, { autoAlpha: 0, scale: 0.94, clipPath: "inset(12% 12% 12% 12% round 20px)" });
+
+        // Gentle parallax: the map drifts up as the hero scrolls away.
+        gsap.to(map, {
+          yPercent: -8,
+          ease: "none",
+          scrollTrigger: { trigger: heroRef.current, start: "top top", end: "bottom top", scrub: true },
+        });
+
+        let alive = true; // the start is async (boot + fonts) — a cleaned-up run must not fire late
+        let split, tl;
+        const counters = [];
+        const play = () => {
+          if (!alive) return;
+          h1.classList.add("is-splitting"); // gradient text can't clip transformed children — solid ink while animating
+          split = SplitText.create(h1, { type: "lines,words", mask: "lines", wordsClass: "word" });
+          gsap.set(h1, { autoAlpha: 1 });
+          const [meta, lead, ctas, stats] = rise;
+
+          tl = gsap
+            .timeline({ defaults: { ease: "power3.out" } })
+            .to(meta, { y: 0, autoAlpha: 1, duration: 0.6, stagger: 0.08 })
+            .from(split.words, { yPercent: 115, duration: 1, stagger: 0.07, ease: "power4.out" }, "-=0.3")
+            .add(() => {
+              split.revert();
+              h1.classList.remove("is-splitting");
+            })
+            .to(lead, { y: 0, autoAlpha: 1, duration: 0.8 }, "-=0.6")
+            .to(ctas, { y: 0, autoAlpha: 1, duration: 0.7, stagger: 0.1, clearProps: "transform" }, "-=0.55")
+            .to(stats, { y: 0, autoAlpha: 1, duration: 0.7, stagger: 0.08, clearProps: "transform" }, "-=0.45")
+            .add(() => q(".stat .num").forEach((el) => counters.push(countUp(el))), "<")
+            .to(map, { autoAlpha: 1, scale: 1, clipPath: "inset(0% 0% 0% 0% round 20px)", duration: 1.2, ease: "expo.out", clearProps: "clipPath,scale" }, 0.35);
+        };
+        const start = () => (document.fonts ? document.fonts.ready.then(play) : play());
+
+        if (document.body.classList.contains("hero-ready")) start();
+        else window.addEventListener("boot-done", start, { once: true });
+        return () => {
+          alive = false;
+          window.removeEventListener("boot-done", start);
+          tl?.kill();
+          counters.forEach((c) => c?.kill());
+          q(".stat .num").forEach((el) => (el.textContent = el.dataset.value));
+          gsap.set([h1, ...rise.flat(), ...map], { clearProps: "all" });
+          split?.revert();
+          h1.classList.remove("is-splitting");
+        };
+      });
+    },
+    { scope: heroRef, dependencies: [lang], revertOnUpdate: true }
+  );
+}
 
 export default function Home() {
   const { t, lang } = useLang();
   usePageTitle(`${t(META.name)} — ${t(META.role)}`);
   useReveal([lang]);
+  const heroRef = useRef(null);
+  useHeroIntro(heroRef, lang);
 
   const stats = [
     [pad(STATS.years), UI.hero.statLabels.years],
@@ -28,9 +122,9 @@ export default function Home() {
     <>
       <BootOverlay />
 
-      <section className="hero">
+      <section className="hero" ref={heroRef}>
         <div className="container hero-grid">
-          <div>
+          <div className="hero-copy">
             <div className="coord">{META.coords}</div>
             <div className="status-pill hero-eyebrow">
               <span className="status-dot" aria-hidden="true"></span>
@@ -50,7 +144,9 @@ export default function Home() {
             <div className="stat-row">
               {stats.map(([num, lbl]) => (
                 <div className="stat" key={lbl.en}>
-                  <span className="num">{num}</span>
+                  <span className="num" data-value={num}>
+                    {num}
+                  </span>
                   <span className="lbl">{t(lbl)}</span>
                 </div>
               ))}

@@ -1,12 +1,32 @@
 import { META, UI, EXPERIENCE, CREDENTIAL_NOTE, EDUCATION, SKILLS, CERTIFICATIONS } from "../data.js";
 import { useLang } from "../i18n.jsx";
 import { useReveal, usePageTitle } from "../useReveal.js";
+import { useRef } from "react";
 import { PinIcon } from "../components/Icons.jsx";
+import { gsap, ScrollTrigger, useGSAP, MOTION_OK } from "../motion.js";
 
 export default function Experience() {
   const { t, lang } = useLang();
   usePageTitle(`${t(UI.nav.experience)} — ${t(META.name)}`);
   useReveal([lang]);
+  const timelineRef = useRef(null);
+
+  // The timeline line draws itself as you scroll; each role's dot lights up when reached.
+  useGSAP(
+    () => {
+      gsap.matchMedia().add(MOTION_OK, () => {
+        gsap.fromTo(
+          ".timeline-progress",
+          { scaleY: 0 },
+          { scaleY: 1, ease: "none", scrollTrigger: { trigger: timelineRef.current, start: "top 70%", end: "bottom 70%", scrub: 0.6 } }
+        );
+        gsap.utils.toArray(".timeline-item").forEach((item) =>
+          ScrollTrigger.create({ trigger: item, start: "top 70%", toggleClass: { targets: item, className: "is-active" } })
+        );
+      });
+    },
+    { scope: timelineRef }
+  );
 
   return (
     <>
@@ -20,7 +40,8 @@ export default function Experience() {
 
       <section>
         <div className="container">
-          <div className="timeline">
+          <div className="timeline" ref={timelineRef}>
+            <div className="timeline-progress" aria-hidden="true" />
             {EXPERIENCE.map((job, i) => (
               <div className="timeline-item reveal" key={i}>
                 <div className="timeline-period">{t(job.period)}</div>
