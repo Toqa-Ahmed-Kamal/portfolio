@@ -31,6 +31,13 @@ src/components/            Nav, Footer, ProjectCard, CoverageMap, BootOverlay, I
 
 For a video, upload it to YouTube (Unlisted) and set `video: "VIDEO_ID"`.
 
+## Mobile Applications section
+In `src/data.js`, add project ids to `MOBILE_APP_IDS`, e.g. `["aula-tourism"]`.
+They appear in the "Mobile Applications" section on Home (inside a phone frame)
+and under the "Mobile Apps" filter on Projects. While the list is empty, both
+show a "Coming soon" state. For a better fit, give the project a portrait
+screenshot with `mobileImage: "img/your-phone-shot.png"`.
+
 ## Deploy to Vercel
 1. Push this folder to a GitHub repo.
 2. In Vercel: Add New → Project → import the repo.

@@ -5,6 +5,8 @@ import { useReveal, usePageTitle } from "../useReveal.js";
 import BootOverlay from "../components/BootOverlay.jsx";
 import CoverageMap from "../components/CoverageMap.jsx";
 import ProjectCard from "../components/ProjectCard.jsx";
+import MobileApps from "../components/MobileApps.jsx";
+import { ArrowIcon } from "../components/Icons.jsx";
 
 const pad = (n) => String(n).padStart(2, "0");
 
@@ -30,7 +32,8 @@ export default function Home() {
         <div className="container hero-grid">
           <div>
             <div className="coord">{META.coords}</div>
-            <div className="eyebrow hero-eyebrow" style={{ marginTop: 8 }}>
+            <div className="status-pill hero-eyebrow">
+              <span className="status-dot" aria-hidden="true"></span>
               {t(UI.hero.eyebrow)}
             </div>
             <h1>{t(UI.hero.headline)}</h1>
@@ -38,6 +41,7 @@ export default function Home() {
             <div className="hero-cta">
               <Link to="/projects" className="btn btn-primary">
                 {t(UI.hero.ctaPrimary)}
+                <ArrowIcon />
               </Link>
               <Link to="/contact" className="btn btn-secondary">
                 {t(UI.hero.ctaSecondary)}
@@ -55,7 +59,10 @@ export default function Home() {
 
           <div className="hero-map-frame">
             <div className="hero-map-head">
-              <span className="eyebrow">{t(UI.map.label)}</span>
+              <span className="eyebrow">
+                <span className="live-dot" aria-hidden="true"></span>
+                {t(UI.map.label)}
+              </span>
               <span className="coord">
                 {LOCATIONS.length} {t(UI.map.sites)} · {STATS.countries} {t(UI.hero.statLabels.countries)}
               </span>
@@ -83,7 +90,11 @@ export default function Home() {
           </div>
           <div className="stack-grid">
             <div className="stack-card reveal">
-              <h3>{t(UI.stack.esri)}</h3>
+              <h3>
+                <span className="stack-swatch" style={{ background: "var(--water)" }} aria-hidden="true"></span>
+                {t(UI.stack.esri)}
+                <span className="stack-count">{String(STACK.esri.length).padStart(2, "0")}</span>
+              </h3>
               <div className="stack-tags">
                 {STACK.esri.map((s) => (
                   <span className="tag" key={s}>
@@ -93,7 +104,11 @@ export default function Home() {
               </div>
             </div>
             <div className="stack-card reveal">
-              <h3>{t(UI.stack.openSource)}</h3>
+              <h3>
+                <span className="stack-swatch" style={{ background: "var(--terrain)" }} aria-hidden="true"></span>
+                {t(UI.stack.openSource)}
+                <span className="stack-count">{String(STACK.openSource.length).padStart(2, "0")}</span>
+              </h3>
               <div className="stack-tags">
                 {STACK.openSource.map((s) => (
                   <span className="tag" key={s}>
@@ -120,10 +135,13 @@ export default function Home() {
           <div className="featured-footer reveal">
             <Link to="/projects" className="btn btn-secondary">
               {t(UI.featured.viewAll)}
+              <ArrowIcon />
             </Link>
           </div>
         </div>
       </section>
+
+      <MobileApps />
     </>
   );
 }

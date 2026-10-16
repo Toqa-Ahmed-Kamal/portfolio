@@ -69,6 +69,17 @@ export const UI = {
     title: { en: "A few things worth a closer look.", ar: "بعض الأعمال التي تستحق نظرة أقرب." },
     viewAll: { en: "View all projects", ar: "عرض كل المشاريع" },
   },
+  mobileApps: {
+    label: { en: "// MOBILE APPLICATIONS", ar: "// تطبيقات الموبايل" },
+    title: { en: "Built for the screen in your pocket.", ar: "مصمّمة للشاشة اللي في جيبك." },
+    sub: {
+      en: "Mobile and tablet apps — from location-aware field tools to everyday consumer experiences.",
+      ar: "تطبيقات موبايل وتابلت — من أدوات ميدانية تعتمد على الموقع إلى تجارب يومية للمستخدمين.",
+    },
+    comingSoon: { en: "Coming soon", ar: "قريبًا" },
+    empty: { en: "Mobile app showcases are on their way.", ar: "عرض تطبيقات الموبايل في الطريق." },
+    filter: { en: "Mobile Apps", ar: "تطبيقات موبايل" },
+  },
   experiencePage: {
     eyebrow: { en: "// TIMELINE", ar: "// المسار الزمني" },
     title: { en: "Experience", ar: "الخبرة العملية" },
@@ -91,7 +102,7 @@ export const UI = {
       ar: "أكثر من عشرين مشروعًا بين أنظمة مؤسسية وخرائط ويب عامة وتحليل مكاني — يمكنك الفلترة حسب النوع.",
     },
     filterAll: { en: "All", ar: "الكل" },
-    viewLive: { en: "View live ↗", ar: "عرض المشروع ↗" },
+    viewLive: { en: "View live", ar: "عرض المشروع" },
     mediaPending: { en: "Visual coming soon", ar: "الصورة قريبًا" },
   },
   contactPage: {
@@ -393,7 +404,7 @@ export const PROJECTS = [
     title: { en: "Effective Rainfall Analysis — Texas", ar: "تحليل الأمطار الفعالة — تكساس" },
     desc: { en: "Analysis of effective rainfall in Texas and its impact on irrigation planning.", ar: "تحليل الأمطار الفعالة في تكساس وأثرها على تخطيط الري." },
     tags: ["Spatial Analysis", "Hydrology"],
-    image: null, // e.g. "img/PROJECT-ID.jpg" — see README
+    image: "img/Texas Effective Rainfall Dashboard.png",
     video: null, // e.g. "dQw4w9WgXcQ" (YouTube video ID) — see README
     location: "texas",
   },
@@ -401,9 +412,12 @@ export const PROJECTS = [
     id: "iraq-encroachment",
     category: "analysis",
     title: { en: "Encroachment Monitoring — Iraqi Regions", ar: "رصد التعديات — مناطق عراقية" },
-    desc: { en: "Analysis monitoring encroachments and structural changes across Iraqi regions.", ar: "تحليل لرصد التعديات والتغيرات الإنشائية في مناطق عراقية." },
-    tags: ["Remote Sensing", "Change Detection"],
-    image: null, // e.g. "img/PROJECT-ID.jpg" — see README
+    desc: {
+      en: "A web dashboard monitoring encroachments and structural changes across Iraqi regions.",
+      ar: "لوحة بيانات ويب لرصد التعديات والتغيرات الإنشائية في مناطق عراقية.",
+    },
+    tags: ["Web Dashboard", "Remote Sensing", "Change Detection"],
+    image: "img/Modern Iraq Encroachment Monitoring Dashboard.png",
     video: null, // e.g. "dQw4w9WgXcQ" (YouTube video ID) — see README
     location: "iraq-regions",
   },
@@ -423,7 +437,7 @@ export const PROJECTS = [
     title: { en: "Government Achievements Dashboard — Ministry of Housing", ar: "لوحة إنجازات — وزارة الإسكان" },
     desc: { en: "A dashboard displaying government achievements for the Minister of Housing.", ar: "لوحة بيانات لعرض إنجازات الوزارة لوزير الإسكان." },
     tags: ["Dashboard", "GovTech"],
-    image: null, // e.g. "img/PROJECT-ID.jpg" — see README
+    image: "img/Egyptian Ministry Housing Dashboard UI.png",
     video: null, // e.g. "dQw4w9WgXcQ" (YouTube video ID) — see README
   },
   {
@@ -432,7 +446,7 @@ export const PROJECTS = [
     title: { en: "Security Planning — Ministry of Interior", ar: "التخطيط الأمني — وزارة الداخلية" },
     desc: { en: "A GIS project submitted to Egypt's Ministry of Interior to enhance security planning.", ar: "مشروع GIS مقدَّم لوزارة الداخلية المصرية لتعزيز التخطيط الأمني." },
     tags: ["GIS", "GovTech"],
-    image: null, // e.g. "img/PROJECT-ID.jpg" — see README
+    image: "img/Arabic GIS Security Planning Dashboard.png",
     video: null, // e.g. "dQw4w9WgXcQ" (YouTube video ID) — see README
   },
   {
@@ -492,7 +506,7 @@ export const PROJECTS = [
     title: { en: "Route to Market — 100+ Branches", ar: "Route to Market — أكثر من 100 فرع" },
     desc: { en: "An RTM project for a Saudi company with more than 100 branches nationwide.", ar: "مشروع Route to Market لشركة سعودية لديها أكثر من 100 فرع." },
     tags: ["RTM", "Dashboards"],
-    image: null, // e.g. "img/PROJECT-ID.jpg" — see README
+    image: "img/Route to Market.png",
     video: null, // e.g. "dQw4w9WgXcQ" (YouTube video ID) — see README
     link: "https://2h.ae/cXRE",
     location: "riyadh",
@@ -515,14 +529,77 @@ export const PROJECTS = [
     id: "transport-capital",
     category: "mapping",
     title: { en: "Transport Company Project — Administrative Capital", ar: "مشروع شركة نقل — العاصمة الإدارية" },
-    desc: { en: "A web mapping project for a transport company in Egypt's New Administrative Capital.", ar: "مشروع خرائط ويب لشركة نقل في العاصمة الإدارية الجديدة." },
-    tags: ["Web GIS", "Transport"],
-    image: null, // e.g. "img/PROJECT-ID.jpg" — see README
+    desc: {
+      en: "ITI GIS Track graduation project (2023) — a web mapping project for a transport company in Egypt's New Administrative Capital.",
+      ar: "مشروع تخرج مسار GIS في ITI (2023) — مشروع خرائط ويب لشركة نقل في العاصمة الإدارية الجديدة.",
+    },
+    tags: ["Web GIS", "Transport", "ITI 2023"],
+    image: "img/Transport Network Dashboard Showcase.png",
     video: null, // e.g. "dQw4w9WgXcQ" (YouTube video ID) — see README
     link: "https://2h.ae/weBz",
     location: "capital",
   },
     {
+    id: "livestock",
+    category: "gov",
+    title: { en: "Livestock — Smart Herd Management", ar: "إدارة المواشي — منصة ذكية للقطيع" },
+    desc: {
+      en: "A bilingual tablet app for recognizing livestock by face scan and managing herds in one place — animal profiles, health and vaccination records, inspection logs, and GPS location editing on a map.",
+      ar: "تطبيق تابلت ثنائي اللغة للتعرّف على المواشي ببصمة الوجه وإدارة القطيع في مكان واحد — ملف لكل حيوان، وسجل الصحة والتطعيمات، وسجل الفحوصات، وتعديل الموقع بالـ GPS على الخريطة.",
+    },
+    tags: ["Tablet App", "Face Recognition", "GPS", "AR / EN"],
+    image: "img/Livestock App Tablet Showcase.png",
+    video: null,
+  },
+  {
+    id: "linkedwhere",
+    category: "mapping",
+    title: { en: "LinkedWhere — Proximity Connect", ar: "LinkedWhere — التواصل المهني بالقرب منك" },
+    desc: {
+      en: "A location-based networking app that shows professionals near you on a live map, with skill filters, location-privacy controls, and real-time chat.",
+      ar: "تطبيق تواصل مهني قائم على الموقع، يعرض المحترفين القريبين منك على خريطة مباشرة، مع فلترة بالمهارات وإعدادات خصوصية للموقع ومحادثة فورية.",
+    },
+    tags: ["Mobile App", "Location-Based", "Real-time Chat"],
+    image: "img/linkedwhere.png",
+    video: null,
+  },
+  {
+    id: "recipes-app",
+    category: "mobile",
+    title: { en: "Delicious Recipes App", ar: "تطبيق الوصفات" },
+    desc: {
+      en: "A recipe-sharing app — discover recipes by category, follow step-by-step ingredients, and publish your own with photos, cooking time, and servings.",
+      ar: "تطبيق لمشاركة الوصفات — اكتشاف الوصفات حسب التصنيف، ومتابعة المكونات والخطوات، ونشر وصفاتك بالصور ووقت الطهي وعدد الحصص.",
+    },
+    tags: ["Mobile App", "UI/UX", "Social"],
+    image: "img/Delicious Recipes App Showcase.png",
+    video: null,
+  },
+  {
+    id: "shopping-app",
+    category: "mobile",
+    title: { en: "Shopping App", ar: "تطبيق تسوّق" },
+    desc: {
+      en: "A shopping app with live product search, ratings, and list/grid views across beauty, groceries, and home categories.",
+      ar: "تطبيق تسوّق ببحث فوري عن المنتجات، وتقييمات، وعرض قائمة أو شبكة عبر أقسام التجميل والبقالة والمنزل.",
+    },
+    tags: ["Mobile App", "E-commerce", "Search"],
+    image: "img/Modern Smartphone Shopping App Showcase.png",
+    video: null,
+  },
+  {
+    id: "masar",
+    category: "market",
+    title: { en: "Masar — Sales & Distribution Management", ar: "مسار — إدارة المبيعات والتوزيع" },
+    desc: {
+      en: "A smart web and mobile system for packaged food and dairy companies — managing sales reps, customers, orders, and distribution routes, with tracking and reporting that connects field teams to management.",
+      ar: "نظام ويب وموبايل ذكي لشركات الأغذية المعبأة والألبان — لإدارة المناديب والعملاء والطلبات وخطوط التوزيع، مع متابعة وتقارير تربط الفرق الميدانية بالإدارة.",
+    },
+    tags: ["Web + Mobile", "Sales & Distribution", "Route Planning"],
+    image: "img/Masar Enterprise Tracking Dashboard.png",
+    video: null, // e.g. "dQw4w9WgXcQ" (YouTube video ID) — see README
+  },
+  {
     id: "gmarketing-research",
     category: "market",
     title: { en: "Geomarketing Research", ar: "أبحاث التسويق الجغرافي" },
@@ -533,6 +610,11 @@ export const PROJECTS = [
     link: "https://2h.ae/FkZU",
   },
 ];
+
+// Projects shown in the "Mobile Applications" section on Home and under the "Mobile Apps" filter.
+// Add a project's id here, e.g. ["aula-tourism", "abe-loans"]. Optional per-project field:
+// `mobileImage: "img/x.png"` — a phone-sized screenshot (portrait) used inside the phone frame.
+export const MOBILE_APP_IDS = ["masar", "livestock", "linkedwhere", "recipes-app", "shopping-app"];
 
 // Hand-picked featured set for the home page (in addition to any tagged `featured` above)
 export const FEATURED_IDS = ["mosul-dashboard", "aula-tourism", "fertilizer-distribution", "alexandria-qol"];
@@ -556,6 +638,6 @@ export const LOCATIONS = [
   { id: "bagcilar", name: { en: "Bağcılar, Turkey", ar: "باغجيلار، تركيا" }, lat: 41.0351, lng: 28.8575, note: { en: "Green area distribution analysis", ar: "تحليل توزيع المساحات الخضراء" } },
   { id: "texas", name: { en: "Texas, USA", ar: "تكساس، الولايات المتحدة" }, lat: 31.9686, lng: -99.9018, note: { en: "Effective rainfall & irrigation analysis", ar: "تحليل الأمطار الفعالة والري" } },
   { id: "twente", name: { en: "East Twente, Netherlands", ar: "إيست تفينته، هولندا" }, lat: 52.25, lng: 6.9167, note: { en: "Wind turbine site suitability", ar: "ملاءمة مواقع توربينات الرياح" } },
-  { id: "capital", name: { en: "New Administrative Capital, Egypt", ar: "العاصمة الإدارية الجديدة، مصر" }, lat: 30.0074, lng: 31.7043, note: { en: "Transport company web mapping project", ar: "مشروع خرائط ويب لشركة نقل" } },
+  { id: "capital", name: { en: "New Administrative Capital, Egypt", ar: "العاصمة الإدارية الجديدة، مصر" }, lat: 30.0074, lng: 31.7043, note: { en: "Transport company web mapping — ITI GIS graduation project (2023)", ar: "خرائط ويب لشركة نقل — مشروع تخرج GIS في ITI (2023)" } },
   { id: "alexandria", name: { en: "Alexandria, Egypt", ar: "الإسكندرية، مصر" }, lat: 31.2001, lng: 29.9187, note: { en: "Quality of life graduation project", ar: "مشروع تخرج عن جودة الحياة" } },
 ];

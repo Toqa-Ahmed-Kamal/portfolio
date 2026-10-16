@@ -1,17 +1,18 @@
 import { useState } from "react";
 import { UI } from "../data.js";
 import { useLang } from "../i18n.jsx";
-import { PinIcon, PlayIcon } from "./Icons.jsx";
+import { PinIcon, PlayIcon, ExternalIcon } from "./Icons.jsx";
 
 export const CAT_NAMES = {
   gov: { en: "Enterprise & Government", ar: "مؤسسي وحكومي" },
   mapping: { en: "Web Mapping & Apps", ar: "خرائط وتطبيقات ويب" },
   analysis: { en: "Spatial Analysis", ar: "تحليل مكاني" },
   market: { en: "Market & Business", ar: "سوق وأعمال" },
+  mobile: { en: "Mobile Apps", ar: "تطبيقات موبايل" },
 };
 
 // Image paths in data.js are written like "img/x.png" — serve them from /public.
-const imgSrc = (path) => (/^(https?:)?\//.test(path) ? path : `/${path}`);
+export const imgSrc = (path) => (/^(https?:)?\//.test(path) ? path : `/${path}`);
 
 function Media({ project }) {
   const { t } = useLang();
@@ -76,6 +77,7 @@ export default function ProjectCard({ project }) {
         {project.link && (
           <a className="project-link" href={project.link} target="_blank" rel="noopener noreferrer">
             {t(UI.projectsPage.viewLive)}
+            <ExternalIcon />
           </a>
         )}
       </div>
