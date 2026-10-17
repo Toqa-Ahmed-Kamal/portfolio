@@ -80,6 +80,19 @@ export const UI = {
     empty: { en: "Mobile app showcases are on their way.", ar: "عرض تطبيقات الموبايل في الطريق." },
     filter: { en: "Mobile Apps", ar: "تطبيقات موبايل" },
   },
+  reviews: {
+    label: { en: "// CLIENT REVIEWS", ar: "// آراء العملاء" },
+    title: { en: "What freelance clients say.", ar: "ماذا يقول عملاء الفري لانس." },
+    sub: {
+      en: "Feedback from clients on freelance GIS and web projects.",
+      ar: "تقييمات العملاء على مشاريع GIS والويب الحرة.",
+    },
+    average: { en: "average rating", ar: "متوسط التقييم" },
+    count: { en: "reviews", ar: "تقييم" },
+    comingSoon: { en: "Coming soon", ar: "قريبًا" },
+    empty: { en: "Client reviews are being collected.", ar: "جاري تجميع تقييمات العملاء." },
+    verified: { en: "View on", ar: "عرض على" },
+  },
   experiencePage: {
     eyebrow: { en: "// TIMELINE", ar: "// المسار الزمني" },
     title: { en: "Experience", ar: "الخبرة العملية" },
@@ -610,6 +623,18 @@ export const PROJECTS = [
     link: "https://2h.ae/FkZU",
   },
 ];
+
+// Freelance client reviews — shown in the "Client Reviews" section on Home.
+// Paste real reviews only, as written by the client. Fields:
+//   name:     client name (or initials, if they prefer)              — required
+//   role:     { en, ar } e.g. "Operations Manager, Riyadh"           — optional
+//   project:  { en, ar } what you built for them                     — optional
+//   platform: "Upwork" | "Mostaql" | "Khamsat" | "Freelancer" | …    — optional
+//   rating:   1–5                                                    — required
+//   text:     { en, ar } the review; one language is fine            — required
+//   date:     "2025-03"                                              — optional
+//   link:     URL of the review on the platform                      — optional
+export const REVIEWS = [];
 
 // Projects shown in the "Mobile Applications" section on Home and under the "Mobile Apps" filter.
 // Add a project's id here, e.g. ["aula-tourism", "abe-loans"]. Optional per-project field:

@@ -7,6 +7,9 @@ import Experience from "./pages/Experience.jsx";
 import Projects from "./pages/Projects.jsx";
 import Contact from "./pages/Contact.jsx";
 import { useGlobalMotion } from "./motion.js";
+import DesignLab, { labEnabled } from "./components/DesignLab.jsx";
+
+const SHOW_LAB = labEnabled();
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -35,6 +38,7 @@ export default function App() {
         </Routes>
       </main>
       <Footer />
+      {SHOW_LAB && <DesignLab />}
     </>
   );
 }

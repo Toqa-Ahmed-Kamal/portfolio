@@ -127,7 +127,7 @@ export function useGlobalMotion(mainRef, pathname) {
     const mm = gsap.matchMedia();
     mm.add(`${MOTION_OK} and (pointer: fine)`, () => {
       const MAGNETIC = ".btn, .social-btn, .theme-switch, .lang-switch, .to-top, .footer-social a";
-      const SPOT = ".project-card, .app-card, .stack-card, .timeline-item, .contact-row, .edu-card";
+      const SPOT = ".project-card, .app-card, .stack-card, .timeline-item, .contact-row, .edu-card, .review-card";
       let current = null;
 
       const release = (el) => gsap.to(el, { x: 0, y: 0, duration: 0.6, ease: "elastic.out(1, 0.4)" });

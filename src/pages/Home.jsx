@@ -7,6 +7,7 @@ import BootOverlay from "../components/BootOverlay.jsx";
 import CoverageMap from "../components/CoverageMap.jsx";
 import ProjectCard from "../components/ProjectCard.jsx";
 import MobileApps from "../components/MobileApps.jsx";
+import Reviews from "../components/Reviews.jsx";
 import { ArrowIcon } from "../components/Icons.jsx";
 import { gsap, SplitText, useGSAP, MOTION_OK } from "../motion.js";
 
@@ -238,6 +239,8 @@ export default function Home() {
       </section>
 
       <MobileApps />
+
+      <Reviews />
     </>
   );
 }
