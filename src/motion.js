@@ -14,6 +14,11 @@ document.fonts?.ready.then(() => ScrollTrigger.refresh());
 window.addEventListener("load", () => ScrollTrigger.refresh());
 
 export const MOTION_OK = "(prefers-reduced-motion: no-preference)";
+
+// Wait for web fonts so SplitText measures real line breaks — but never longer than `ms`:
+// on a slow connection the content must not stay hidden waiting for a font file.
+export const fontsReady = (ms = 1500) =>
+  Promise.race([document.fonts ? document.fonts.ready : Promise.resolve(), new Promise((r) => setTimeout(r, ms))]);
 const isRtl = () => document.documentElement.dir === "rtl";
 
 /* Section headings: eyebrow slides in, heading rises word by word out of a line mask.
@@ -40,7 +45,7 @@ function animateHeading(head, scrollTriggered) {
   };
 
   // Split only after web fonts load, otherwise line breaks are measured with the fallback font.
-  const start = () => (document.fonts ? document.fonts.ready.then(play) : play());
+  const start = () => fontsReady().then(play);
   if (scrollTriggered) ScrollTrigger.create({ trigger: head, start: "top 88%", once: true, onEnter: start });
   else start();
 

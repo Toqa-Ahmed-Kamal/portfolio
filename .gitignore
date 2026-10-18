@@ -1,2 +1,5 @@
 node_modules
 dist
+
+# original review screenshots (contain phone numbers) — the site uses the redacted copies in public/reviews/
+public/img/rev/

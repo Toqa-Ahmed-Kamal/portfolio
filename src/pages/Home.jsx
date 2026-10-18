@@ -5,11 +5,12 @@ import { useLang } from "../i18n.jsx";
 import { useReveal, usePageTitle } from "../useReveal.js";
 import BootOverlay from "../components/BootOverlay.jsx";
 import CoverageMap from "../components/CoverageMap.jsx";
+import IntroVideo from "../components/IntroVideo.jsx";
 import ProjectCard from "../components/ProjectCard.jsx";
 import MobileApps from "../components/MobileApps.jsx";
 import Reviews from "../components/Reviews.jsx";
 import { ArrowIcon } from "../components/Icons.jsx";
-import { gsap, SplitText, useGSAP, MOTION_OK } from "../motion.js";
+import { gsap, SplitText, useGSAP, MOTION_OK, fontsReady } from "../motion.js";
 
 const pad = (n) => String(n).padStart(2, "0");
 
@@ -45,15 +46,15 @@ function useHeroIntro(heroRef, lang) {
       mm.add(MOTION_OK, () => {
         const q = gsap.utils.selector(heroRef);
         const h1 = q("h1")[0];
-        const map = q(".hero-map-frame");
+        const media = q(".hero-video");
         const rise = [q(".hero-copy > .coord, .hero-copy > .status-pill"), q(".lead"), q(".hero-cta .btn"), q(".stat")];
 
         gsap.set(rise.flat(), { autoAlpha: 0, y: 22 });
         gsap.set(h1, { autoAlpha: 0 });
-        gsap.set(map, { autoAlpha: 0, scale: 0.94, clipPath: "inset(12% 12% 12% 12% round 20px)" });
+        gsap.set(media, { autoAlpha: 0, scale: 0.94, clipPath: "inset(12% 12% 12% 12% round 20px)" });
 
-        // Gentle parallax: the map drifts up as the hero scrolls away.
-        gsap.to(map, {
+        // Gentle parallax: the video drifts up as the hero scrolls away.
+        gsap.to(media, {
           yPercent: -8,
           ease: "none",
           scrollTrigger: { trigger: heroRef.current, start: "top top", end: "bottom top", scrub: true },
@@ -81,9 +82,9 @@ function useHeroIntro(heroRef, lang) {
             .to(ctas, { y: 0, autoAlpha: 1, duration: 0.7, stagger: 0.1, clearProps: "transform" }, "-=0.55")
             .to(stats, { y: 0, autoAlpha: 1, duration: 0.7, stagger: 0.08, clearProps: "transform" }, "-=0.45")
             .add(() => q(".stat .num").forEach((el) => counters.push(countUp(el))), "<")
-            .to(map, { autoAlpha: 1, scale: 1, clipPath: "inset(0% 0% 0% 0% round 20px)", duration: 1.2, ease: "expo.out", clearProps: "clipPath,scale" }, 0.35);
+            .to(media, { autoAlpha: 1, scale: 1, clipPath: "inset(0% 0% 0% 0% round 20px)", duration: 1.2, ease: "expo.out", clearProps: "clipPath,scale" }, 0.35);
         };
-        const start = () => (document.fonts ? document.fonts.ready.then(play) : play());
+        const start = () => fontsReady().then(play);
 
         if (document.body.classList.contains("hero-ready")) start();
         else window.addEventListener("boot-done", start, { once: true });
@@ -93,7 +94,7 @@ function useHeroIntro(heroRef, lang) {
           tl?.kill();
           counters.forEach((c) => c?.kill());
           q(".stat .num").forEach((el) => (el.textContent = el.dataset.value));
-          gsap.set([h1, ...rise.flat(), ...map], { clearProps: "all" });
+          gsap.set([h1, ...rise.flat(), ...media], { clearProps: "all" });
           split?.revert();
           h1.classList.remove("is-splitting");
         };
@@ -154,15 +155,24 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="hero-map-frame">
+          <IntroVideo />
+        </div>
+      </section>
+
+      <section className="coverage-section">
+        <div className="container">
+          <div className="section-head reveal">
+            <span className="eyebrow">{t(UI.map.label)}</span>
+            <h2>{t(UI.map.title)}</h2>
+            <p>{t(UI.map.sub)}</p>
+          </div>
+          <div className="hero-map-frame coverage-frame reveal">
             <div className="hero-map-head">
               <span className="eyebrow">
                 <span className="live-dot" aria-hidden="true"></span>
-                {t(UI.map.label)}
-              </span>
-              <span className="coord">
                 {LOCATIONS.length} {t(UI.map.sites)} · {STATS.countries} {t(UI.hero.statLabels.countries)}
               </span>
+              <span className="coord">{META.coords}</span>
             </div>
             <div style={{ position: "relative", flex: 1, minHeight: 0 }}>
               <CoverageMap />

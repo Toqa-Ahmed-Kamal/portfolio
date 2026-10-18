@@ -69,6 +69,13 @@ export const UI = {
     title: { en: "A few things worth a closer look.", ar: "بعض الأعمال التي تستحق نظرة أقرب." },
     viewAll: { en: "View all projects", ar: "عرض كل المشاريع" },
   },
+  intro: {
+    label: { en: "INTRO · 0:41", ar: "تعريف · 0:41" },
+    sound: { en: "Tap for sound", ar: "اضغطي للصوت" },
+    mute: { en: "Mute", ar: "كتم الصوت" },
+    play: { en: "Play intro", ar: "شغّلي الفيديو" },
+    replay: { en: "Replay", ar: "إعادة التشغيل" },
+  },
   mobileApps: {
     label: { en: "// MOBILE APPLICATIONS", ar: "// تطبيقات الموبايل" },
     title: { en: "Built for the screen in your pocket.", ar: "مصمّمة للشاشة اللي في جيبك." },
@@ -84,9 +91,17 @@ export const UI = {
     label: { en: "// CLIENT REVIEWS", ar: "// آراء العملاء" },
     title: { en: "What freelance clients say.", ar: "ماذا يقول عملاء الفري لانس." },
     sub: {
-      en: "Feedback from clients on freelance GIS and web projects.",
-      ar: "تقييمات العملاء على مشاريع GIS والويب الحرة.",
+      en: "Real messages from freelance clients — shared as they were sent, with personal details hidden.",
+      ar: "رسائل حقيقية من عملاء الفري لانس — كما وصلت، مع إخفاء البيانات الشخصية.",
     },
+    messages: { en: "client messages", ar: "رسالة من العملاء" },
+    freelance: { en: "freelance projects", ar: "مشروع فري لانس" },
+    showAll: { en: "Show all messages", ar: "عرض كل الرسائل" },
+    showLess: { en: "Show less", ar: "عرض أقل" },
+    shotAlt: { en: "Client message", ar: "رسالة من عميل" },
+    close: { en: "Close", ar: "إغلاق" },
+    prev: { en: "Previous", ar: "السابق" },
+    next: { en: "Next", ar: "التالي" },
     average: { en: "average rating", ar: "متوسط التقييم" },
     count: { en: "reviews", ar: "تقييم" },
     comingSoon: { en: "Coming soon", ar: "قريبًا" },
@@ -635,6 +650,52 @@ export const PROJECTS = [
 //   date:     "2025-03"                                              — optional
 //   link:     URL of the review on the platform                      — optional
 export const REVIEWS = [];
+
+// Screenshots of real client messages (WhatsApp), shown as a wall in the reviews section.
+// Files live in public/reviews/ — re-encoded from public/img/rev/ with any phone numbers covered.
+// Order = display order (strongest first). w/h keep the layout stable while images load.
+export const REVIEW_SHOTS = [
+  { src: "reviews/r03.webp", w: 900, h: 184 },
+  { src: "reviews/r04.webp", w: 900, h: 298 },
+  { src: "reviews/r22.webp", w: 900, h: 376 },
+  { src: "reviews/r13.webp", w: 900, h: 440 },
+  { src: "reviews/r26.webp", w: 900, h: 352 },
+  { src: "reviews/r27.webp", w: 900, h: 190 },
+  { src: "reviews/r34.webp", w: 900, h: 394 },
+  { src: "reviews/r16.webp", w: 900, h: 552 },
+  { src: "reviews/r19.webp", w: 900, h: 174 },
+  { src: "reviews/r05.webp", w: 900, h: 328 },
+  { src: "reviews/r08.webp", w: 900, h: 192 },
+  { src: "reviews/r15.webp", w: 900, h: 184 },
+  { src: "reviews/r20.webp", w: 900, h: 418 },
+  { src: "reviews/r21.webp", w: 900, h: 214 },
+  { src: "reviews/r25.webp", w: 900, h: 544 },
+  { src: "reviews/r31.webp", w: 900, h: 504 },
+  { src: "reviews/r38.webp", w: 576, h: 322 },
+  { src: "reviews/r40.webp", w: 569, h: 548 },
+  { src: "reviews/r10.webp", w: 900, h: 408 },
+  { src: "reviews/r24.webp", w: 900, h: 634 },
+  { src: "reviews/r14.webp", w: 900, h: 224 },
+  { src: "reviews/r37.webp", w: 900, h: 150 },
+  { src: "reviews/r30.webp", w: 900, h: 336 },
+  { src: "reviews/r33.webp", w: 900, h: 168 },
+  { src: "reviews/r11.webp", w: 900, h: 128 },
+  { src: "reviews/r12.webp", w: 900, h: 174 },
+  { src: "reviews/r01.webp", w: 900, h: 166 },
+  { src: "reviews/r02.webp", w: 900, h: 112 },
+  { src: "reviews/r06.webp", w: 900, h: 278 },
+  { src: "reviews/r07.webp", w: 900, h: 174 },
+  { src: "reviews/r09.webp", w: 900, h: 172 },
+  { src: "reviews/r18.webp", w: 900, h: 212 },
+  { src: "reviews/r23.webp", w: 900, h: 396 },
+  { src: "reviews/r28.webp", w: 900, h: 490 },
+  { src: "reviews/r29.webp", w: 900, h: 314 },
+  { src: "reviews/r32.webp", w: 900, h: 302 },
+  { src: "reviews/r35.webp", w: 900, h: 276 },
+  { src: "reviews/r36.webp", w: 900, h: 184 },
+  { src: "reviews/r39.webp", w: 575, h: 314 },
+  { src: "reviews/r17.webp", w: 900, h: 92 },
+];
 
 // Projects shown in the "Mobile Applications" section on Home and under the "Mobile Apps" filter.
 // Add a project's id here, e.g. ["aula-tourism", "abe-loans"]. Optional per-project field:
