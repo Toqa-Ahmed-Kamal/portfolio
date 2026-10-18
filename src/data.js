@@ -656,9 +656,9 @@ export const REVIEWS = [];
 // Order = display order (strongest first). w/h keep the layout stable while images load.
 export const REVIEW_SHOTS = [
   { src: "reviews/r03.webp", w: 900, h: 184 },
-  { src: "reviews/r04.webp", w: 900, h: 298 },
+  { src: "reviews/r04.webp", w: 900, h: 294 },
   { src: "reviews/r22.webp", w: 900, h: 376 },
-  { src: "reviews/r13.webp", w: 900, h: 440 },
+  { src: "reviews/r13.webp", w: 900, h: 436 },
   { src: "reviews/r26.webp", w: 900, h: 352 },
   { src: "reviews/r27.webp", w: 900, h: 190 },
   { src: "reviews/r34.webp", w: 900, h: 394 },
