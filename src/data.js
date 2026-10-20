@@ -103,10 +103,14 @@ export const UI = {
     prev: { en: "Previous", ar: "السابق" },
     next: { en: "Next", ar: "التالي" },
     average: { en: "average rating", ar: "متوسط التقييم" },
-    count: { en: "reviews", ar: "تقييم" },
+    count: { en: "verified reviews", ar: "تقييمات موثّقة" },
+    countOne: { en: "verified review", ar: "تقييم موثّق" },
     comingSoon: { en: "Coming soon", ar: "قريبًا" },
     empty: { en: "Client reviews are being collected.", ar: "جاري تجميع تقييمات العملاء." },
     verified: { en: "View on", ar: "عرض على" },
+    reply: { en: "My reply:", ar: "ردّي:" },
+    platformTitle: { en: "Verified platform reviews", ar: "تقييمات موثّقة على المنصات" },
+    shotsTitle: { en: "Client messages", ar: "رسائل العملاء" },
   },
   experiencePage: {
     eyebrow: { en: "// TIMELINE", ar: "// المسار الزمني" },
@@ -287,7 +291,7 @@ export const PROJECTS = [
     title: { en: "Loan Management Platform — Agricultural Bank of Egypt", ar: "منصة إدارة القروض — البنك الزراعي المصري" },
     desc: { en: "A mobile and web platform supporting the bank's loan operations end to end.", ar: "منصة ويب وموبايل تدعم عمليات إقراض البنك من البداية للنهاية." },
     tags: ["Full-Stack", "Mobile + Web"],
-    image: "img/ABE.png",
+    image: "img/Multi-Device Agricultural Loan Login Mockup.png",
     video: null, // e.g. "dQw4w9WgXcQ" (YouTube video ID) — see README
   },
   {
@@ -305,7 +309,7 @@ export const PROJECTS = [
     title: { en: "Fertilizer Distribution Platform", ar: "منصة توزيع الأسمدة" },
     desc: { en: "Connects the Ministry of Agriculture directly with citizens for fertilizer distribution.", ar: "تربط وزارة الزراعة بالمواطنين مباشرة لتوزيع الأسمدة." },
     tags: ["GovTech", "GIS"],
-    image: "img/Fertilizer.png",
+    image: "img/Fertilizer Management Workspace Showcase.png",
     video: null, // e.g. "dQw4w9WgXcQ" (YouTube video ID) — see README
   },
   {
@@ -649,7 +653,57 @@ export const PROJECTS = [
 //   text:     { en, ar } the review; one language is fine            — required
 //   date:     "2025-03"                                              — optional
 //   link:     URL of the review on the platform                      — optional
-export const REVIEWS = [];
+export const REVIEWS = [
+  // All reviews from https://khamsat.com/user/toqa_ahmed_kamal/reviews — copied exactly, newest first.
+  {
+    name: "حامد ف.",
+    platform: { en: "Khamsat", ar: "خمسات" },
+    rating: 5,
+    text: { ar: "شكرا لكم" },
+    reply: { ar: "العفو تشرفت بالعمل معك" },
+    project: { ar: "توفير خريطة تحليلية تدعم اتخاذ القرارات الاستراتيجية", en: "Analytical map supporting strategic decision-making" },
+    date: "2025-12",
+    link: "https://khamsat.com/user/toqa_ahmed_kamal/reviews/1109663",
+  },
+  {
+    name: "امل خ.",
+    platform: { en: "Khamsat", ar: "خمسات" },
+    rating: 5,
+    text: { ar: "سريعة في الانجاز - ممتازة جدا - انصح بها بقوة" },
+    project: { ar: "توفير خريطة تحليلية تدعم اتخاذ القرارات الاستراتيجية", en: "Analytical map supporting strategic decision-making" },
+    date: "2025-02",
+    link: "https://khamsat.com/user/toqa_ahmed_kamal/reviews/1040918",
+  },
+  {
+    name: "Nnn S.",
+    platform: { en: "Khamsat", ar: "خمسات" },
+    rating: 5,
+    text: { ar: "ممتازه" },
+    project: { ar: "تقديم خرائط حرارية وتحليل الأنماط المكانية", en: "Heat maps & spatial pattern analysis" },
+    date: "2025-01",
+    link: "https://khamsat.com/user/toqa_ahmed_kamal/reviews/1035285",
+  },
+  {
+    name: "Ragad A.",
+    platform: { en: "Khamsat", ar: "خمسات" },
+    rating: 5,
+    text: { ar: "متقعن وسريع" },
+    reply: { ar: "شكرا لكي ❤" },
+    project: { ar: "توفير خريطة تحليلية تدعم اتخاذ القرارات الاستراتيجية", en: "Analytical map supporting strategic decision-making" },
+    date: "2024-12",
+    link: "https://khamsat.com/user/toqa_ahmed_kamal/reviews/1027959",
+  },
+  {
+    name: "Alfaisal A.",
+    platform: { en: "Khamsat", ar: "خمسات" },
+    rating: 5,
+    text: { ar: "تم توفير الخرائط للمخاطر الطبيعية بشكل ممتاز" },
+    reply: { ar: "شكرا لك ❤" },
+    project: { ar: "عمل خرائط تحليل وتنبؤ للمخاطر الطبيعية", en: "Natural-hazard analysis & prediction maps" },
+    date: "2024-12",
+    link: "https://khamsat.com/user/toqa_ahmed_kamal/reviews/1025187",
+  },
+];
 
 // Screenshots of real client messages (WhatsApp), shown as a wall in the reviews section.
 // Files live in public/reviews/ — re-encoded from public/img/rev/ with any phone numbers covered.

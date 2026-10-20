@@ -52,7 +52,9 @@ Every user-facing string is bilingual: `{ en: "...", ar: "..." }`, rendered with
 - `MOBILE_APP_IDS` — projects shown in the Mobile Applications section and the "Mobile Apps" filter.
   Optional `mobileImage` on a project = portrait screenshot shown inside a phone frame; otherwise the
   (usually multi-device) showcase `image` is shown full width.
-- `REVIEWS` — typed freelance reviews (schema documented above the array). Currently empty.
+- `REVIEWS` — verified platform reviews (schema above the array), each with a `link` to the original
+  (rendered as a "View on <platform>" button). Copy name/stars/text/date exactly from the platform.
+  Khamsat sends `X-Frame-Options: SAMEORIGIN`, so its review pages can't be embedded in an iframe.
 - `REVIEW_SHOTS` — 40 real WhatsApp screenshots of client messages, shown as a 1/2/3-column wall
   (12 first, "Show all" expands, click opens a lightbox). Files: `public/reviews/rNN.webp`, re-encoded
   from the owner's originals in `public/img/rev/`. Two originals showed a client's phone number — the

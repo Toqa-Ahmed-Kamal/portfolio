@@ -27,30 +27,49 @@ function Stars({ rating }) {
   );
 }
 
+const CheckIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M5 12.5l4.5 4.5L19 7.5" />
+  </svg>
+);
+
 function ReviewCard({ review }) {
   const { t, lang } = useLang();
+  const platform = typeof review.platform === "string" ? review.platform : pick(review.platform, lang);
   const date = review.date ? new Date(review.date + "-01").toLocaleDateString(lang === "ar" ? "ar-EG" : "en-US", { month: "short", year: "numeric" }) : "";
   return (
     <figure className="review-card reveal">
       <div className="review-top">
         <Stars rating={review.rating} />
-        {review.platform && <span className="review-platform">{review.platform}</span>}
+        {platform && (
+          <span className="review-platform">
+            {review.link && <CheckIcon />}
+            {platform}
+          </span>
+        )}
       </div>
       <blockquote dir="auto">{pick(review.text, lang)}</blockquote>
+      {review.reply && (
+        <p className="review-reply" dir="auto">
+          <span>{t(UI.reviews.reply)}</span>
+          {pick(review.reply, lang)}
+        </p>
+      )}
       <figcaption>
         <span className="review-avatar" aria-hidden="true">
           {initials(review.name)}
         </span>
         <span className="review-who">
-          <span className="review-name">{review.name}</span>
+          <span className="review-name" dir="auto">{review.name}</span>
           <span className="review-meta">{[pick(review.role, lang), pick(review.project, lang), date].filter(Boolean).join(" · ")}</span>
         </span>
-        {review.link && (
-          <a className="review-link" href={review.link} target="_blank" rel="noopener noreferrer" aria-label={`${t(UI.reviews.verified)} ${review.platform || ""}`}>
-            <ExternalIcon />
-          </a>
-        )}
       </figcaption>
+      {review.link && (
+        <a className="review-source" href={review.link} target="_blank" rel="noopener noreferrer">
+          {t(UI.reviews.verified)} {platform}
+          <ExternalIcon />
+        </a>
+      )}
     </figure>
   );
 }
@@ -179,25 +198,30 @@ export default function Reviews() {
             <h2>{t(UI.reviews.title)}</h2>
             <p>{t(UI.reviews.sub)}</p>
           </div>
-          {REVIEWS.length === 0 && REVIEW_SHOTS.length > 0 && (
+          {(REVIEWS.length > 0 || REVIEW_SHOTS.length > 0) && (
             <div className="reviews-score reveal">
-              <span className="score-num">{REVIEW_SHOTS.length}</span>
+              {REVIEWS.length > 0 ? (
+                <>
+                  <span className="score-num">{avg.toFixed(1)}</span>
+                  <Stars rating={avg} />
+                </>
+              ) : (
+                <span className="score-num">{REVIEW_SHOTS.length}</span>
+              )}
               <span className="score-lbl">
-                {t(UI.reviews.messages)} · {STATS.freelance}+ {t(UI.reviews.freelance)}
-              </span>
-            </div>
-          )}
-          {REVIEWS.length > 0 && (
-            <div className="reviews-score reveal">
-              <span className="score-num">{avg.toFixed(1)}</span>
-              <Stars rating={avg} />
-              <span className="score-lbl">
-                {t(UI.reviews.average)} · {REVIEWS.length} {t(UI.reviews.count)}
+                {[
+                  REVIEWS.length > 0 && `${REVIEWS.length} ${t(REVIEWS.length === 1 ? UI.reviews.countOne : UI.reviews.count)}`,
+                  REVIEW_SHOTS.length > 0 && `${REVIEW_SHOTS.length} ${t(UI.reviews.messages)}`,
+                  `${STATS.freelance}+ ${t(UI.reviews.freelance)}`,
+                ]
+                  .filter(Boolean)
+                  .join(" · ")}
               </span>
             </div>
           )}
         </div>
 
+        {REVIEWS.length > 0 && REVIEW_SHOTS.length > 0 && <h3 className="reviews-sub">{t(UI.reviews.platformTitle)}</h3>}
         {REVIEWS.length > 0 && (
           <div className="review-grid">
             {REVIEWS.map((r, i) => (
@@ -205,6 +229,7 @@ export default function Reviews() {
             ))}
           </div>
         )}
+        {REVIEWS.length > 0 && REVIEW_SHOTS.length > 0 && <h3 className="reviews-sub">{t(UI.reviews.shotsTitle)}</h3>}
         {REVIEW_SHOTS.length > 0 && <ReviewShots />}
         {REVIEWS.length === 0 && REVIEW_SHOTS.length === 0 && (
           <div className="review-empty reveal">

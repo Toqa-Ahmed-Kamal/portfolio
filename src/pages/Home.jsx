@@ -5,7 +5,7 @@ import { useLang } from "../i18n.jsx";
 import { useReveal, usePageTitle } from "../useReveal.js";
 import BootOverlay from "../components/BootOverlay.jsx";
 import CoverageMap from "../components/CoverageMap.jsx";
-import IntroVideo from "../components/IntroVideo.jsx";
+// import IntroVideo from "../components/IntroVideo.jsx"; // re-enable together with <IntroVideo /> below
 import ProjectCard from "../components/ProjectCard.jsx";
 import MobileApps from "../components/MobileApps.jsx";
 import Reviews from "../components/Reviews.jsx";
@@ -155,7 +155,8 @@ export default function Home() {
             </div>
           </div>
 
-          <IntroVideo />
+          {/* Intro video temporarily hidden while it's being re-edited — uncomment to show it again.
+          <IntroVideo /> */}
         </div>
       </section>
 
